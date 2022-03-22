@@ -1,0 +1,34 @@
+package com.example.openfeign.feign;
+
+import com.qf.cmf.demo.service.Book;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.*;
+
+//  加了 @FeignClient 依赖之后，系统会自动给 BookService 生成一个代理类，并且将之注册到 Spring 容器中
+//  表示这个 Feign 客户端绑定了 storage 服务
+//  下面的注解中可以有 url 的参数，但是这样会把请求写死。比如：url = "127.0.0.1:8888"
+@FeignClient(value = "storage")
+public interface BookService2 {
+
+//     使用 OoenFeign 实现远程接口调用时，参数一定一定记得加 @RequestParam 注解
+
+    @GetMapping("/book/")
+    Book getBookById(@RequestParam("id") Integer id);
+
+    @PostMapping("/book/")
+    Book addBook(@RequestBody Book book);
+
+//    @PostMapping("/book/add")
+//    这里的返回值类型无论是 URI 或者是 String 都不行，因为返回的字符串也不是真正意义的字符串
+//    String addBook2(@RequestBody Book book);
+
+    @PutMapping("/book/")
+    void updateBook(@RequestBody Book book);
+
+    @DeleteMapping("/book/{id}")
+    void deleteBookById(@PathVariable("id") Integer id);
+
+
+
+
+}
