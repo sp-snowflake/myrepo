@@ -25,7 +25,7 @@ public class HelloController {
 //    通过 DiscoveryClient 可以在 Eureka 上查询不同服务的信息
     @Autowired
     DiscoveryClient discoveryClient;
-1231321
+
     @Autowired
     RestTemplate restTemplate;
 
